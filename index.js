@@ -42,10 +42,11 @@ app.get("/getItems", async (req, res) => {
   const orgConnection = await con();
   try {
     const Item = orgConnection.model("Item", itemSchema);
-    const response = await Item.find({ isDeleted: false }).select(
-      "name printName currentStockQuantity productCategory unit isActive specifications description price "
+    const response = await Item.find({ isDeleted: false}).select(
+      "name printName currentStockQuantity productCategory unit isActive specifications description price images"
     );
-    console.log(typeof response);
+    console.log(response);
+    
     res.status(200).json({
       message: "Item list fetched successfully",
       response,
