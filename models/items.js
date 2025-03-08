@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const {mongoose} = require("mongoose");
 
 const itemSchema = new mongoose.Schema({
   name: {
@@ -61,8 +61,21 @@ const itemSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  description: {
+    type: String
+  }, 
+  price: {
+    type: mongoose.Schema.Types.Decimal128
+  },
+  images: {
+    type: [String]
+  }
+
+
 },
-{timeseries: true}
+{timeseries: true,
+
+}
 );
 
-module.exports = itemSchema;
+module.exports = {itemSchema};
