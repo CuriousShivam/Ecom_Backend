@@ -16,9 +16,9 @@ const itemSchema = require("./models/index");
 const app = express();
 
 const corsOptions = {
-  origin: "*",
+  origin:"http://localhost:5173",
   credentials: true,
-  optionSuccessStatus: 200,
+  optionSuccessStatus: 200
 };
 
 //Middlewares
