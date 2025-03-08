@@ -42,7 +42,9 @@ app.get("/getItems", async (req, res) => {
   const orgConnection = await con();
   try {
     const Item = orgConnection.model("Item", itemSchema);
-    const response = await Item.find({}).select("name printName currentStockQuantity productCategory unit isActive specifications");
+    const response = await Item.find({ isDeleted: false }).select(
+      "name printName currentStockQuantity productCategory unit isActive specifications description price "
+    );
     console.log(typeof response);
     res.status(200).json({
       message: "Item list fetched successfully",
@@ -63,7 +65,7 @@ app.put("/updateItem", async (req, res) => {
   const rdescription = req.body.description;
   const rprice = req.body.price;
   // const rid = req.body.id;
-  const rid = req.query.id
+  const rid = req.query.id;
 
   let updateArr = {};
 
@@ -79,8 +81,7 @@ app.put("/updateItem", async (req, res) => {
     updateArr["price"] = rprice;
   }
 
-  console.log(updateArr)
-
+  console.log(updateArr);
 
   if (!rid) {
     res.status(404).json({
@@ -93,14 +94,14 @@ app.put("/updateItem", async (req, res) => {
   try {
     // res.send(req.body._id)
     const Item = orgConnection.model("Item", itemSchema);
-    console.log("in try")
+    console.log("in try");
 
-    const response = await Item.findByIdAndUpdate(rid,updateArr)
+    const response = await Item.findByIdAndUpdate(rid, updateArr);
 
-    console.log("response")
+    console.log("response");
     res.status(200).json({ message: "Items Updated" });
   } catch (error) {
-    res.status(404).json({error, message:"Not Found"});
+    res.status(404).json({ error, message: "Not Found" });
   }
 });
 
@@ -110,9 +111,7 @@ app.put("/updateItem", async (req, res) => {
   const rprice = req.body.price;
   const rid = req.body.id;
 
-
-
-  res.status(200).json({id: id})
+  res.status(200).json({ id: id });
 
   // let updateArr = {};
 
@@ -129,7 +128,6 @@ app.put("/updateItem", async (req, res) => {
   // }
 
   // console.log(updateArr)
-
 
   // if (!rid) {
   //   res.status(404).json({
@@ -152,7 +150,6 @@ app.put("/updateItem", async (req, res) => {
   //   res.status(404).json({error, message:"Not Found"});
   // }
 });
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
