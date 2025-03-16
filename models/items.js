@@ -61,13 +61,13 @@ const itemSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  description: {
+  description: {    //by ecommerce
     type: String
   }, 
-  price: {
+  price: {  //by ecommerce
     type: mongoose.Schema.Types.Decimal128
   },
-  images: {
+  images: {  //by ecommerce
     type: [String]
   }
 
